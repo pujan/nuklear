@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-16 09:41+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: engine.py:54
+msgid "Error options"
+msgstr ""
+
+#: engine.py:60
+msgid "Level number error"
+msgstr ""
+
+#: nnuklear.py:53
+msgid "y"
+msgstr ""
+
+#: nnuklear.py:53
+msgid "Y"
+msgstr ""
+
+#: nnuklear.py:55
+msgid "n"
+msgstr ""
+
+#: nnuklear.py:55
+msgid "N"
+msgstr ""
+
+#: nnuklear.py:67
+msgid "Game over! Congratulation!"
+msgstr ""
+
+#: nnuklear.py:68
+msgid "Space bar - exit"
+msgstr ""
+
+#: nnuklear.py:92
+msgid "level"
+msgstr ""
+
+#: nnuklear.py:95
+msgid "moves"
+msgstr ""
+
+#: nnuklear.py:177
+msgid "Do you want to exit? [y/n]"
+msgstr ""
+
+#: parser.py:145
+msgid "Player not found"
+msgstr ""
+
+#: parser.py:150
+msgid "Destroyers not found"
+msgstr ""
+
+#: parser.py:155
+msgid "Containers not found"
+msgstr ""
+
+#: parser.py:158
+msgid "Number Containers and number Desteoyers is not equal"
+msgstr ""
+
+#: parser.py:212 parser.py:223 parser.py:227 parser.py:230 parser.py:233
+#: parser.py:238
+msgid "Token error"
+msgstr ""

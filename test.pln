@@ -1,0 +1,27 @@
+level [
+title = "test 1"
+begin
+######
+#& o.#
+######
+]
+
+
+level [
+title = "test 2"
+number = 2
+begin
+######
+#& o.#
+######
+]
+
+
+level [
+title = "test 3"
+begin
+######
+#& o.#
+######
+]
+
