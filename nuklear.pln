@@ -1,0 +1,231 @@
+; Plansze dla gry Nuklearna Misja 0.2
+; autor: Łukasz 'Pujan' Pelc
+; ----------------------------------------
+; plansza może mieć minimum 6 linii
+; oraz wymiary do 40 znaków szerokości i do 20 znaków wysokości
+; maksymalna ilość plansz w pliku to 256, podejrzewam, że i tak za dużo :)
+; atrybut title nie może zawierać polskich znaków (program nie obsługuje ogonków)
+
+; jeżeli postawisz tabulator w bloku planszy, to podczas ładowania zostanie
+; on zamieniony na 4 spacje, czyli 4 puste miejsca.
+
+; opis elementów na plaszy:
+; # - mur, przeszkoda
+; & - gracz, może być tylko jeden na każdej planszy
+; o - pojemnik z uranem
+; . - destruktor, trzeba doprowadzić pojemnik z uranem do niego, aby zlikwidować
+; ' ' (spacja) - puste miejsce
+
+; cel gry:
+; oczyść wszystkie miejsca z pojemników z uranem
+
+; poziom 1
+level
+[
+; tutaj też może być komentarz, ale po słowie begin już nie
+; po obu stronach znaku równości muszą być spacje - to nie błąd,
+; to celowe zamierzenie
+title = "kawalerka"
+begin
+#########
+# ..    #
+######  #
+# o o   #
+#&      #
+#########
+]
+; koniec planszy - komentarz musi być w osobnej linii; to nie błąd :)
+
+; poziom 2
+level
+[
+title = "piwnica"
+author = "Łukasz Pelc"
+begin
+          ##
+##########  #####
+#            # .#
+# oo ####       #
+#     &    #    #
+########  ##   .#
+        ## ######
+]
+
+; poziom 3
+level
+[
+title = "lad i porzadek"
+author = "Łukasz Pelc"
+; nie wszędzie potrzebne są ściany
+; jeżeli plansza przylega do krawędzi okna
+begin
+            #              #
+   o        #         o    #
+    o                o     #
+       #    &    #         #
+           #.#             #
+########  .....  ###########
+           #.#             #
+       #    .    #         #
+    o                o     #
+   o        #         o    #
+            #              #
+############################
+]
+
+; poziom 4
+level
+[
+title = "diamentowa komnata"
+author = "Łukasz Pelc"
+begin
+#############
+#    # #    #
+#.         .#
+#  ### ###  #
+#. #     # ##
+## # o o    #
+#   oo oo# ##
+## #     # .#
+#  ### ##   #
+#.    &    .#
+#############
+]
+
+; poziom 5
+level
+[
+title = "komnata Maksymiliana"
+begin
+#############
+#.   #    ..#
+#          .#
+#& ### ###  #
+#  #  o  # ##
+#  # o o #  #
+#   o o o   #
+## # o o #  #
+#  #  o  #  #
+#  ### ###  #
+#.         .#
+#.     #  ..#
+#############
+]
+
+; poziom 6
+level
+[
+title = "Cztery pokoje"
+author = "Łukasz Pelc"
+begin
+#####    ####
+#...######  ###
+#   #  #      #
+#        #ooo #
+#...#   #  #  #
+#####   #   # #
+#       #   # #
+#     ##### ###
+#    #       #
+## ##        #
+#   #   ### ##
+#   #  # o o #
+# &    # o   #
+#   #  #     #
+##############
+]
+
+; poziom 7
+level
+[
+author = "Łukasz Pelc"
+number = 7
+title = "Borowkowy las"
+begin
+###############
+#             #
+# ## ##### ## #
+#    #   #    #
+#  # #o o# #  #
+# #    &    # #
+#  # #o o# #   ############
+#    #   #      #   #.    #
+#     ###    #    #  #    #
+#          #    #   #     #
+############  #        #. #
+           #     #   #    #
+           #  #   # #   # #
+           #  .  # . #    #
+           #              #
+           ################
+]
+
+; poziom 8
+level
+[
+author = "Łukasz Pelc"
+title = "Warsztat dziadka"
+begin
+######################
+#     #              #
+#  #            #   ##
+#  #     # #         #
+##  # #  & #  # #    ########
+#              #       .....#
+### ##  ###### ##############
+#    ###   #      o  #
+# # #  # #ooo#    ## #
+# o             #    #
+##  ##################
+  ##
+]
+
+; poziom 9
+level
+[
+title = "Stary magazyn"
+begin
+################################
+                               #
+       #o#o#o#o#o#o#o#o        #
+  # #                    #    ##
+       #################       #
+   # # #.....     .....## # &  #
+ #     # # # # # # # # #       #
+       #               #   #####
+  #    ### # ###### # ##  #    #
+     ####     # #      #       #
+  #   o  #          #  ###   ###
+   #  ##      # #      #       #
+       ######## ##########     #
+ ####                  #  # #  #
+       ###  ### ##    #   o    #
+   ##           #         #  # #
+       ##          ##          #
+################################
+]
+
+; poziom 10
+level
+[
+title = "Na wolnym powietrzu"
+number = 10
+begin
+       #          ###        #
+              o  #   #  o          #
+   #      #    ##  &  ##      #
+ # o   #   #                #    #
+               #### ####
+   #              # #         #
+       #   ######## ########      o
+    #     #                 #
+         #       o   o       #    #
+  #  #  #    #############    #
+        #    #..  .#.  ..#    #    #
+   #    ###   #. .   . .#   ###
+        #  #   #   #   #   #  #  #
+  #     #  o   #       #   o  #
+     #  #      # #   # #      #     #
+   # o # ######         ######   #o
+]
+
