@@ -1,4 +1,4 @@
-# What this is?
+# What is this?
 
 This project is clone a game sokoban (sobokan).
 
