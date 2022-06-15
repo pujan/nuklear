@@ -136,7 +136,6 @@ def main(stdscr: Any) -> None:
 
     e = engine.Engine(pln_file='nuklear.pln')
     e.parsefile()
-    level_number = 0
     e.start()
 
     def update():

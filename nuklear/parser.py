@@ -202,6 +202,7 @@ class Parser:
         board = Board(MAX_Y, MAX_X)
         board_list = []
         iterator = tokenize_file(self.filename)
+        level_number = 1
 
         for token in iterator:
             if token.type in ('COMMENT',):
@@ -237,19 +238,19 @@ class Parser:
                 board.from_list(board_list)
                 board.check()
                 levels.append(Level(
-                    int(options.get('number', '-1')),
+                    int(options.get('number', level_number)),
                     options.get('title', ''),
                     options.get('author', ''),
                     board))
                 self.kw_level = False
                 self.kw_begin = False
                 self.open_braket = False
-                # number = title = author = Nones
-                options = {}  # .clear()
-                board_list = []  # .clear()
+                options.clear()
+                board_list.clear()
                 board = Board(MAX_Y, MAX_X)
+                level_number += 1
 
-        return levels
+        return sorted(levels, key=lambda x: x.number)
 
 
 if __name__ == '__main__':
