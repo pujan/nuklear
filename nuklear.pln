@@ -54,7 +54,7 @@ begin
 ; poziom 3
 level
 [
-title = "lad i porzadek"
+title = "Ład i porządek"
 author = "Łukasz Pelc"
 ; nie wszędzie potrzebne są ściany
 ; jeżeli plansza przylega do krawędzi okna
@@ -95,7 +95,7 @@ begin
 ; poziom 5
 level
 [
-title = "komnata Maksymiliana"
+title = "Komnata Maksymiliana"
 begin
 #############
 #.   #    ..#
@@ -140,7 +140,7 @@ level
 [
 author = "Łukasz Pelc"
 number = 7
-title = "Borowkowy las"
+title = "Borówkowy las"
 begin
 ###############
 #             #
@@ -228,4 +228,3 @@ begin
      #  #      # #   # #      #     #
    # o # ######         ######   #o
 ]
-
