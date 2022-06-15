@@ -37,6 +37,12 @@ begin
 ]
 ```
 
+# Keybindings
+
+* `arrows` - moving the player
+* `r` - reload the board
+* `q` - quit
+
 # TODO
 
 * write in pygame (gnuklear.py)
