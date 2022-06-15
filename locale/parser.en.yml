@@ -1,0 +1,6 @@
+en:
+  player_not_found: Player not found
+  dest_not_found: Destroyers not found
+  cont_not_found: Containers not found
+  not_equal: Number Containers and number Destroyers is not equal
+  err_token: Token error

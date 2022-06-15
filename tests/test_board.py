@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from parser import (
-    Board, Object,
-    PlayerNotFoundError,
-    ContainerDestroyerNotEqualError,
-    ZeroContainerError,
-    ZeroDestroyerError)
+from nuklear.parser import (Board, ContainerDestroyerNotEqualError, Object,
+                            PlayerNotFoundError, ZeroContainerError,
+                            ZeroDestroyerError)
 
 
 class TestBoard(unittest.TestCase):
@@ -41,12 +38,12 @@ class TestBoard(unittest.TestCase):
     def test_check(self):
         with self.assertRaises(PlayerNotFoundError):
             self.board.check()
-        
+
         self.board.set(0, 0, Object.PLAYER)
 
         with self.assertRaises(ZeroDestroyerError):
             self.board.check()
-            
+
         self.board.set(0, 1, Object.DESTROYER)
 
         with self.assertRaises(ZeroContainerError):
@@ -72,7 +69,7 @@ class TestBoard(unittest.TestCase):
         self.board.set(0, 0, Object.CONTAINER)
         self.board.set(0, 1, Object.CONTAINER)
         self.assertEqual(self.board.num_containers(), 2)
-        
+
         self.assertEqual(self.board.num_destroyers(), 0)
         self.board.set(1, 0, Object.DESTROYER)
         self.board.set(1, 1, Object.DESTROYER)

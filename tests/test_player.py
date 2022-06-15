@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from parser import Player, Direction, MAX_X, MAX_Y
+from nuklear.parser import Direction, Player
 
 
 class TestPlayer(unittest.TestCase):
@@ -22,12 +22,12 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.player.y, 12)
 
         x, y = self.player.move(Direction.NORTH)
-        
+
         self.assertEqual(self.player.x, 10)
         self.assertEqual(self.player.y, 11)
         self.assertEqual(x, 10)
         self.assertEqual(y, 12)
-        
+
         x, y = self.player.move(Direction.NORTH, step=10)
 
         self.assertEqual(self.player.x, 10)
@@ -41,7 +41,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.player.y, 0)
         self.assertEqual(x, 10)
         self.assertEqual(y, 1)
-        
+
     def test_move_south(self):
         self.assertEqual(self.player.x, 10)
         self.assertEqual(self.player.y, 12)
@@ -55,16 +55,16 @@ class TestPlayer(unittest.TestCase):
 
         x, y = self.player.move(Direction.SOUTH, step=7)
         self.assertEqual(self.player.x, 10)
-        self.assertEqual(self.player.y, 20)
+        self.assertEqual(self.player.y, 19)
         self.assertEqual(x, 10)
         self.assertEqual(y, 13)
-        
+
         x, y = self.player.move(Direction.SOUTH, step=50)
 
         self.assertEqual(self.player.x, 10)
-        self.assertEqual(self.player.y, 20)
+        self.assertEqual(self.player.y, 19)
         self.assertEqual(x, 10)
-        self.assertEqual(y, 20)
+        self.assertEqual(y, 19)
 
     def test_move_west(self):
         self.assertEqual(self.player.x, 10)
@@ -76,7 +76,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.player.y, 12)
         self.assertEqual(x, 10)
         self.assertEqual(y, 12)
-        
+
         x, y = self.player.move(Direction.WEST, step=10)
         self.assertEqual(self.player.x, 0)
         self.assertEqual(self.player.y, 12)
@@ -103,7 +103,7 @@ class TestPlayer(unittest.TestCase):
 
         x, y = self.player.move(Direction.EAST, step=100)
 
-        self.assertEqual(self.player.x, MAX_X)
+        self.assertEqual(self.player.x, 39)
         self.assertEqual(self.player.y, 12)
         self.assertEqual(x, 21)
         self.assertEqual(y, 12)

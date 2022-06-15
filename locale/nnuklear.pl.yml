@@ -1,0 +1,10 @@
+pl:
+  yes_lower: t
+  yes_upper: T
+  no_lower: n
+  no_upper: N
+  end_game: Koniec gry! Gratulacje!!
+  exit_key: Spacja - wyjście
+  exit_info: Czy chcesz wyjść? [t/n]
+  level: poziom
+  moves: ruchy

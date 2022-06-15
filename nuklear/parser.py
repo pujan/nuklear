@@ -3,11 +3,10 @@ import gettext
 from enum import Enum, auto, unique
 from itertools import repeat
 
-from tokenizer import tokenize_file
+import nuklear.lang as lang
+from nuklear.tokenizer import tokenize_file
 
-gettext.bindtextdomain('nuklear', 'locale')
-gettext.textdomain('nuklear')
-_ = gettext.gettext
+_ = lang.i18n.t
 
 # FIXME: as parameters Parser, not global variable
 MAX_Y = 20
@@ -142,20 +141,20 @@ class Board:
         x, y = self.search_player()
 
         if x is None or y is None:
-            raise PlayerNotFoundError(_('Player not found'))
+            raise PlayerNotFoundError(_('parser.player_not_found'))
 
         self.destroyers = self.num_destroyers()
 
         if self.destroyers == 0:
-            raise ZeroDestroyerError(_('Destroyers not found'))
+            raise ZeroDestroyerError(_('parser.dest_not_found'))
 
         self.containers = self.num_containers()
 
         if self.containers == 0:
-            raise ZeroContainerError(_('Containers not found'))
+            raise ZeroContainerError(_('parser.cont_not_found'))
 
         if self.containers != self.destroyers:
-            raise ContainerDestroyerNotEqualError(_('Number Containers and number Desteoyers is not equal'))
+            raise ContainerDestroyerNotEqualError(_('parser.not_equal'))
 
     def search_player(self):
         for y in range(self.rows):
@@ -209,7 +208,7 @@ class Parser:
                 continue
             elif token.type == 'BEGIN':
                 if not self.kw_level:
-                    raise ParserError(_('Token error') + f' "{token.text}"')
+                    raise ParserError(_('parser.err_token') + f' "{token.text}"')
                 self.open_braket = True
                 # print(f'{token.text}')
             elif token.type == 'KEYWORD':
@@ -220,22 +219,22 @@ class Parser:
                 if token.text == 'begin' and self.kw_level and self.open_braket:
                     self.kw_begin = True
                 else:
-                    raise ParserError(_('Token error') + f' "{token.text}"')
+                    raise ParserError(_('parser.err_token') + f' "{token.text}"')
                 # print(f'{token.text}')
             elif token.type == 'OPTION':
                 if not self.kw_level or not self.open_braket:
-                    raise ParserError(_('Token error') + f' "{token.text}"')
+                    raise ParserError(_('parser.err_token') + f' "{token.text}"')
                 t = next(iterator)
                 if t.type != 'EQUAL':
-                    raise ParserError(_(f'Token error') + f' "{t.text}"')
+                    raise ParserError(_(f'parser.err_token') + f' "{t.text}"')
                 t = next(iterator)
                 if t.type not in ('STRING', 'NUMBER'):
-                    raise ParserError(_(f'Token error') + f' "{t.text}"')
+                    raise ParserError(_(f'parser.err_token') + f' "{t.text}"')
                 # print(f'{token.text}: {t.text}')
                 options[token.text] = t.text.replace('"', '')
             elif token.type == 'LINE':
                 if not all((self.kw_level, self.open_braket, self.kw_begin)):
-                    raise ParserError(_(f'Token error') + f' "{t.text}"')
+                    raise ParserError(_(f'parser.err_token') + f' "{t.text}"')
 
                 # print(f':: {token.text}')
                 board_list.append(token.text)

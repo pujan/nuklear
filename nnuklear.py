@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import curses
-import gettext
-
-# gettext - translate
-gettext.bindtextdomain('nuklear', 'locale')
-gettext.textdomain('nuklear')
-_ = gettext.gettext
 
 # game modules
-import engine
+import nuklear.engine as engine
+import nuklear.lang as lang
+
+_ = lang.i18n.t
 
 
 def winboard(parent, pair, win_status_height=3):
@@ -50,9 +47,9 @@ def question(parent, pair, string):
 
     while True:
         key = win.getkey()
-        if key in (_('y'), _('Y')):
+        if key in (_('nnuklear.yes_lower'), _('nnuklear.yes_upper')):
             answer = True
-        elif key in (_('n'), _('N')):
+        elif key in (_('nnuklear.no_lower'), _('nnuklear.no_upper')):
             answer = False
 
         if answer is not None:
@@ -64,8 +61,8 @@ def question(parent, pair, string):
 
 def winending(parent, pair):
     maxy, maxx = parent.getmaxyx()
-    msg = _('Game over! Congratulation!')
-    info = _('Space bar - exit')
+    msg = _('nnuklear.end_game')
+    info = _('nnuklear.exit_key')
     w = max([len(msg), len(info)]) + 4  # frame + space on left and on right - 2+2=4 :)
     h = 4
     y = int((maxy - h) / 2)
@@ -89,10 +86,10 @@ def update_status(win, lvl_number, moves, title=None, author=None):
     y = 1
     title = title or ''
     author = author or ''
-    win.addstr(y, 2, '| ' + _('level') + f': {lvl_number:3d}')
+    win.addstr(y, 2, '| ' + _('nnuklear.level') + f': {lvl_number:3d}')
     win.addstr(y, 14, f'| {title:^24}')
     x = maxx - 14
-    win.addstr(y, x, '| ' + _('moves') + f': {moves:3d}')
+    win.addstr(y, x, '| ' + _('nnuklear.moves') + f': {moves:3d}')
     win.refresh()
 
 
@@ -174,7 +171,7 @@ def main(stdscr):
             e.start()
             update()
         elif key == 'q':
-            if question(stdscr, 2, _('Do you want to exit? [y/n]')):
+            if question(stdscr, 2, _('nnuklear.exit_info')):
                 break
             else:
                 wboard, wstatus = drawwins()
@@ -182,4 +179,7 @@ def main(stdscr):
 
 
 if __name__ == '__main__':
-    curses.wrapper(main)
+    try:
+        curses.wrapper(main)
+    except KeyboardInterrupt:
+        pass

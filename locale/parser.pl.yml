@@ -1,0 +1,6 @@
+pl:
+  player_not_found: Nie znaleziono gracza
+  dest_not_found: Nie znaleziono destruktorów
+  cont_not_found: Nie znaleziono pojemników
+  not_equal: Liczba pojemników i destruktorów jest różna
+  err_token: Błędny token
