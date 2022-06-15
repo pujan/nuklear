@@ -2,6 +2,7 @@
 
 import re
 from collections import namedtuple
+from typing import Generator
 
 Token = namedtuple('Token', ['type', 'text'])
 
@@ -23,11 +24,10 @@ T_END = ']'
 T_TERM_STR = '"'
 
 
-def tokenize(line):
-    # print(line)
+def tokenize(line: str) -> Generator[Token, None, None]:
     tokens = iter(line.split(' '))
+
     for token in tokens:
-        # print(token)
         token_type = 'WORD'
         eol = R_EOL.search(token)
         if eol:
@@ -56,14 +56,12 @@ def tokenize(line):
             token_type = 'NUMBER'
 
         yield Token(type=token_type, text=token)
+
         if eol:
             yield Token(type='EOL', text=eol.group())
 
 
-def tokenize_file(filename):
-    begin = False
-    end = False
-
+def tokenize_file(filename: str) -> Generator[Token, None, None]:
     with open(filename) as fd:
         for line in fd:
             eol = R_EOL.search(line)

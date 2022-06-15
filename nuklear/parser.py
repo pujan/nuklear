@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import gettext
 from enum import Enum, auto, unique
 from itertools import repeat
+from typing import Dict, List, Tuple
 
 import nuklear.lang as lang
 from nuklear.tokenizer import tokenize_file
@@ -72,15 +72,15 @@ class Object(Enum):
 
 
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
 
-    def set_position(self, x, y):
+    def set_position(self, x: int, y: int):
         self.x = x
         self.y = y
 
-    def move(self, direction, step=1):
+    def move(self, direction: Direction, step: int = 1) -> Tuple:
         x, y = self.x, self.y
 
         if direction == Direction.NORTH:
@@ -104,26 +104,26 @@ class Player:
 
 
 class Board:
-    def __init__(self, rows, cols):
+    def __init__(self, rows: int, cols: int) -> None:
         self.rows = rows  # y
         self.cols = cols  # x
-        self.containers = None
-        self.destroyers = None
+        self.containers = 0
+        self.destroyers = 0
         self.reset()
 
-    def reset(self):
+    def reset(self) -> None:
         self._board = []
 
         for _ in range(self.rows):
             self._board.append(list(repeat(Object.EMPTY, self.cols)))
 
-    def get(self, x, y):
+    def get(self, x: int, y: int) -> Object:
         return self._board[y][x]
 
-    def set(self, x, y, obj):
+    def set(self, x: int, y: int, obj: Object) -> None:
         self._board[y][x] = obj
 
-    def from_list(self, list2d):
+    def from_list(self, list2d: List[List[str]]) -> None:
         for y, row in enumerate(list2d):
             for x, item in enumerate(row):
                 if item == ' ':
@@ -137,10 +137,10 @@ class Board:
                 elif item == '&':
                     self.set(x, y, Object.PLAYER)
 
-    def check(self):
+    def check(self) -> None:
         x, y = self.search_player()
 
-        if x is None or y is None:
+        if x == -1 or y == -1:
             raise PlayerNotFoundError(_('parser.player_not_found'))
 
         self.destroyers = self.num_destroyers()
@@ -156,49 +156,49 @@ class Board:
         if self.containers != self.destroyers:
             raise ContainerDestroyerNotEqualError(_('parser.not_equal'))
 
-    def search_player(self):
+    def search_player(self) -> Tuple[int, int]:
         for y in range(self.rows):
             for x in range(self.cols):
                 if self._board[y][x] == Object.PLAYER:
                     return (x, y)
 
-        return None, None
+        return -1, -1
 
-    def num_destroyers(self):
+    def num_destroyers(self) -> int:
         return len([x for y in self._board for x in y if x == Object.DESTROYER])
 
-    def num_containers(self):
+    def num_containers(self) -> int:
         return len([x for y in self._board for x in y if x == Object.CONTAINER])
 
-    def decrement_cointainers(self):
+    def decrement_cointainers(self) -> None:
         self.containers -= 1
         self.destroyers -= 1
 
 
 class Level:
-    def __init__(self, number, title, author, board):
+    def __init__(self, number: int, title: str, author: str, board: Board) -> None:
         self.number = number
         self.title = title
         self.author = author
         self.board = board
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'<{self.__class__.__name__} [title="{self.title}", number={self.number}]>'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self)
 
 
 class Parser:
-    def __init__(self, pln_file):
+    def __init__(self, pln_file: str) -> None:
         self.filename = pln_file
         self.kw_level = False
         self.kw_begin = False
         self.open_braket = False
 
-    def parse(self):
+    def parse(self) -> List[Level]:
         levels = []
-        options = {}
+        options: Dict[str, str] = {}
         board = Board(MAX_Y, MAX_X)
         board_list = []
         iterator = tokenize_file(self.filename)
@@ -210,17 +210,14 @@ class Parser:
                 if not self.kw_level:
                     raise ParserError(_('parser.err_token') + f' "{token.text}"')
                 self.open_braket = True
-                # print(f'{token.text}')
             elif token.type == 'KEYWORD':
                 if token.text == 'level':
                     self.kw_level = True
-                    # print(f'{token.text}')
                     continue
                 if token.text == 'begin' and self.kw_level and self.open_braket:
                     self.kw_begin = True
                 else:
                     raise ParserError(_('parser.err_token') + f' "{token.text}"')
-                # print(f'{token.text}')
             elif token.type == 'OPTION':
                 if not self.kw_level or not self.open_braket:
                     raise ParserError(_('parser.err_token') + f' "{token.text}"')
@@ -230,30 +227,27 @@ class Parser:
                 t = next(iterator)
                 if t.type not in ('STRING', 'NUMBER'):
                     raise ParserError(_(f'parser.err_token') + f' "{t.text}"')
-                # print(f'{token.text}: {t.text}')
                 options[token.text] = t.text.replace('"', '')
             elif token.type == 'LINE':
                 if not all((self.kw_level, self.open_braket, self.kw_begin)):
                     raise ParserError(_(f'parser.err_token') + f' "{t.text}"')
 
-                # print(f':: {token.text}')
                 board_list.append(token.text)
             elif token.type == 'END':
                 board.from_list(board_list)
                 board.check()
                 levels.append(Level(
-                    options.get('number'),
-                    options.get('title'),
-                    options.get('author'),
+                    int(options.get('number', '-1')),
+                    options.get('title', ''),
+                    options.get('author', ''),
                     board))
                 self.kw_level = False
                 self.kw_begin = False
                 self.open_braket = False
-                number = title = author = None
-                options = {}
-                board_list = []
+                # number = title = author = Nones
+                options = {}  # .clear()
+                board_list = []  # .clear()
                 board = Board(MAX_Y, MAX_X)
-                # print(f'{token.text}')
 
         return levels
 

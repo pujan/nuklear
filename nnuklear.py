@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import curses
+from typing import Any
 
 # game modules
 import nuklear.engine as engine
 import nuklear.lang as lang
+from nuklear.parser import Level
 
-_ = lang.i18n.t
+t = lang.i18n.t
 
 
-def winboard(parent, pair, win_status_height=3):
+def winboard(parent: Any, pair: int, win_status_height: int = 3) -> Any:
     y = int(((parent.getmaxyx()[0]) - engine.MAX_Y) / 2) - win_status_height
     x = int((parent.getmaxyx()[1] - engine.MAX_X + 2) / 2)
 
@@ -19,20 +21,22 @@ def winboard(parent, pair, win_status_height=3):
     win = curses.newwin(engine.MAX_Y + 2, engine.MAX_X + 2, y, x)
     win.bkgd(' ', curses.color_pair(pair))
     win.box()
+
     return win
 
 
-def winstatus(parent, pair):
+def winstatus(parent: Any, pair: int) -> Any:
     maxy, maxx = parent.getmaxyx()
     y = maxy - 3
     x = 0
     win = curses.newwin(3, maxx, y, x)
     win.bkgd(' ', curses.color_pair(pair))
     win.box()
+
     return win
 
 
-def question(parent, pair, string):
+def question(parent, pair: int, string: str) -> bool:
     maxy, maxx = parent.getmaxyx()
     w = len(string) + 4
     h = 3
@@ -47,22 +51,24 @@ def question(parent, pair, string):
 
     while True:
         key = win.getkey()
-        if key in (_('nnuklear.yes_lower'), _('nnuklear.yes_upper')):
+
+        if key in (t('nnuklear.yes_lower'), t('nnuklear.yes_upper')):
             answer = True
-        elif key in (_('nnuklear.no_lower'), _('nnuklear.no_upper')):
+        elif key in (t('nnuklear.no_lower'), t('nnuklear.no_upper')):
             answer = False
 
         if answer is not None:
             break
 
     win.clear()
+
     return answer
 
 
-def winending(parent, pair):
+def winending(parent: Any, pair: int) -> None:
     maxy, maxx = parent.getmaxyx()
-    msg = _('nnuklear.end_game')
-    info = _('nnuklear.exit_key')
+    msg = t('nnuklear.end_game')
+    info = t('nnuklear.exit_key')
     w = max([len(msg), len(info)]) + 4  # frame + space on left and on right - 2+2=4 :)
     h = 4
     y = int((maxy - h) / 2)
@@ -81,19 +87,17 @@ def winending(parent, pair):
             break
 
 
-def update_status(win, lvl_number, moves, title=None, author=None):
-    maxy, maxx = win.getmaxyx()
+def update_status(win: Any, lvl_number: int, moves: int, title: str = '', author: str = '') -> None:
+    _, maxx = win.getmaxyx()
     y = 1
-    title = title or ''
-    author = author or ''
-    win.addstr(y, 2, '| ' + _('nnuklear.level') + f': {lvl_number:3d}')
+    win.addstr(y, 2, '| ' + t('nnuklear.level') + f': {lvl_number:3d}')
     win.addstr(y, 14, f'| {title:^24}')
     x = maxx - 14
-    win.addstr(y, x, '| ' + _('nnuklear.moves') + f': {moves:3d}')
+    win.addstr(y, x, '| ' + t('nnuklear.moves') + f': {moves:3d}')
     win.refresh()
 
 
-def update_board(win, lvl):
+def update_board(win: Any, lvl: Level) -> None:
     for y in range(engine.MAX_Y):
         for x in range(engine.MAX_X):
             elem = lvl.board.get(x, y)
@@ -114,7 +118,7 @@ def update_board(win, lvl):
     win.refresh()
 
 
-def main(stdscr):
+def main(stdscr: Any) -> None:
     curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLUE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
     wboard = wstaus = None
@@ -146,6 +150,7 @@ def main(stdscr):
             if e.is_game_over():
                 winending(stdscr, 2)
                 break
+
             e.next_level()
             e.start()
             update()
@@ -171,7 +176,7 @@ def main(stdscr):
             e.start()
             update()
         elif key == 'q':
-            if question(stdscr, 2, _('nnuklear.exit_info')):
+            if question(stdscr, 2, t('nnuklear.exit_info')):
                 break
             else:
                 wboard, wstatus = drawwins()
