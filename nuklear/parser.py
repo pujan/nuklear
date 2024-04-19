@@ -6,6 +6,7 @@ from typing import Dict, List, Tuple
 import nuklear.lang as lang
 from nuklear.tokenizer import tokenize_file
 
+
 _ = lang.i18n.t
 
 # FIXME: as parameters Parser, not global variable

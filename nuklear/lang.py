@@ -4,6 +4,7 @@ from pathlib import Path
 import i18n
 from babel import Locale
 
+
 LANGS_PATH = Path.cwd() / 'locale'
 
 i18n.load_path.append(str(LANGS_PATH.resolve()))

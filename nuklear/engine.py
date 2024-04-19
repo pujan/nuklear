@@ -4,8 +4,8 @@ import gettext
 from typing import List, Tuple
 
 import nuklear.lang as lang
-from nuklear.parser import (MAX_X, MAX_Y, Board, Direction, Level, Object,
-                            Parser, Player, Size)
+from nuklear.parser import MAX_X, MAX_Y, Board, Direction, Level, Object, Parser, Player, Size
+
 
 _ = lang.i18n.t
 
@@ -13,7 +13,6 @@ max_size = Size(MAX_X, MAX_Y)
 
 CONFIG = {
     'player_step': 1,
-    # new options
     'max_x': 40,
     'max_y': 20,
 }
@@ -56,9 +55,9 @@ class Engine:
 
         self.config.update(options)
 
-    def start(self) -> None:
+    def start(self) -> bool:
         if self.current_number_level >= len(self.levels):
-            raise Exception(_(f'engine.err_lvl_no') + f': {self.current_number_level}')
+            return False
 
         self.current_level = copy.deepcopy(self.levels[self.current_number_level])
         self.board = self.current_level.board
@@ -66,9 +65,11 @@ class Engine:
         self.player = Player(player_x, player_y)
         self.moves = 0
 
-    def next_level(self) -> None:
+        return True
+
+    def next_level(self) -> bool:
         self.current_number_level += 1
-        self.start()
+        return self.start()
 
     def _player_move(self, direction: Direction) -> bool:
         # ustalamy nowa pozycje gracza
@@ -134,7 +135,7 @@ class Engine:
         return self._player_move(Direction.EAST)
 
     def is_end(self) -> bool:
-        return (self.board.containers, self.board.destroyers) == (0, 0)
+        return (self.board.containers, self.board.destroyers) == (0, 0) or self.current_number_level >= len(self.levels)
 
     def is_game_over(self) -> bool:
         return len(self.levels) == self.current_number_level

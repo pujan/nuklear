@@ -4,7 +4,7 @@ en:
   no_lower: n
   no_upper: N
   end_game: Game over! Congratulation!
-  exit_key: Space bar - exit
+  exit_key: Press space bar - exit
   exit_info: Do you want to exit? [y/n]
   level: level
   moves: moves

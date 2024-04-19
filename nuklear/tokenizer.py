@@ -4,6 +4,7 @@ import re
 from collections import namedtuple
 from typing import Generator
 
+
 Token = namedtuple('Token', ['type', 'text'])
 
 OPTIONS = [

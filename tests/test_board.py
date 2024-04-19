@@ -60,7 +60,7 @@ class TestBoard(unittest.TestCase):
         self.board.check()
 
     def test_search_player(self):
-        self.assertEqual(self.board.search_player(), (None, None))
+        self.assertEqual(self.board.search_player(), (-1, -1))
         self.board.set(2, 2, Object.PLAYER)
         self.assertEqual(self.board.search_player(), (2, 2))
 

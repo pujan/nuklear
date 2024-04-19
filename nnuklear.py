@@ -8,6 +8,7 @@ import nuklear.engine as engine
 import nuklear.lang as lang
 from nuklear.parser import Level
 
+
 t = lang.i18n.t
 
 
@@ -150,7 +151,9 @@ def main(stdscr: Any) -> None:
                 winending(stdscr, 2)
                 break
 
-            e.next_level()
+            if not e.next_level():
+                continue
+
             e.start()
             update()
 
