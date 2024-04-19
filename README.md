@@ -4,7 +4,35 @@ This project is clone a game sokoban (sobokan).
 
 Writing in Python 3 and curses library (module nnuklear.py).
 
-# Create a board
+# Create Virtual Env
+
+## VirtalenvWrapper
+
+```sh
+mkvirtualenv -a $(pwd) -i flit nuklear
+```
+
+## Venv
+
+```sh
+python3 -m venv venv
+source venv/bin/activate
+pip install flit
+```
+
+# Instalation
+
+```sh
+flit install --deps production --only-deps
+```
+
+When Python throws excepion: `ModuleNotFoundError: No module named 'i18n'`:
+
+```sh
+pip install python-i18n
+```
+
+# Create a board (level)
 
 Elements of witch the board consists:
 
@@ -14,8 +42,8 @@ Elements of witch the board consists:
 * & - player (robot, bulldozer, etc. :))
 *   (space) - empty area
 
-Start to level is word `level` and next opening square bracket. Ending square bracket is close level. Word `begin`
-opening structure level. Between opening brackets and the word `begin` are optional options:
+Begin the level with a word `level` and then open the square bracket. End the level follows the closing square bracket. The word `begin` opening structure the level. Optional options can be placed between the opening square bracket and the
+word `begin`:
 
 * `number` - level number
 * `author` - level author
@@ -26,7 +54,7 @@ For example:
 ```
 ; this is a comment
 level [
-; before and after `=` spaces are required
+; spaces are required before and after sign `=`
 title = "anything"
 author = "Łukasz A. Pelc"
 number = 1
@@ -34,6 +62,15 @@ begin
 ######
 #& o.#
 ######
+
+level [
+begin
+###
+#.#
+#o#
+# #
+#&#
+###
 ]
 ```
 
@@ -42,7 +79,3 @@ begin
 * `arrows` - moving the player
 * `r` - reload the board
 * `q` - quit
-
-# TODO
-
-* write in pygame (gnuklear.py)
