@@ -32,6 +32,12 @@ When Python throws excepion: `ModuleNotFoundError: No module named 'i18n'`:
 pip install python-i18n
 ```
 
+# Run
+
+```sh
+python3 nnuklear.py
+```
+
 # Create a board (level)
 
 Elements of witch the board consists:
